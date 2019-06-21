@@ -18,14 +18,13 @@ public class StreamServiceImplTest {
     }
 
     @Test
-    public void testFindAverageWordsInText() {
+    public void testGetSum() {
         Assert.assertTrue(StreamServiceImpl.getSum(new int[]{1, 2, 3}) == 6);
     }
 
     @Test
-    public void testGetCountWordsLongestThan() {
-        StreamServiceImpl.getCountWordsLongestThan(Data.WORDS_LIST, 4);
-        Assert.assertTrue(StreamServiceImpl.getCountWordsLongestThan(Data.WORDS_LIST, 4) == 34);
+    public void testGetCountWordsLongerThan() {
+        Assert.assertTrue(StreamServiceImpl.getCountWordsLongerThan(Data.WORDS_LIST, 4) == 34);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class StreamServiceImplTest {
     }
 
     @Test
-    public void testGetlAverageAge() {
+    public void testGetAverageAge() {
         Assert.assertTrue(StreamServiceImpl.getAverageAge(Data.WORKER_LIST_1) == 22.0);
         Assert.assertTrue(StreamServiceImpl.getAverageAge(Data.WORKER_LIST_2) == 34.0);
     }

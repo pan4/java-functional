@@ -7,26 +7,32 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Comparator;
+import java.util.StringJoiner;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public class LambdaServiceImplTest {
 
-    public static Consumer<Worker> CONSUMER_CONSOLE = null;
-    public static Consumer<Worker> CONSUMER_CONSOLE_ALL_INFO = null;
+    public static Consumer<Worker> CONSUMER_CONSOLE = System.out::println;
+    public static Consumer<Worker> CONSUMER_CONSOLE_ALL_INFO = worker -> {
+        StringJoiner stringJoiner = new StringJoiner(" - ").add(worker.toString());
+        stringJoiner = worker.getAge() == null ? stringJoiner : stringJoiner.add(worker.getAge().toString());
+        stringJoiner = worker.getPhone() == null ? stringJoiner : stringJoiner.add(worker.getPhone().toString());
+        System.out.println(stringJoiner.toString());
+    };
 
-    public static Transform<String> TO_UPPER_CASE = null;
-    public static Transform<String> STR_DOUBLE = null;
-    public static Transform<String> STR_DOUBLE_UPPER = null;
+    public static Transform<String> TO_UPPER_CASE = String::toUpperCase;
+    public static Transform<String> STR_DOUBLE = str -> str.concat(str);
+    public static Transform<String> STR_DOUBLE_UPPER = str -> TO_UPPER_CASE.transform(STR_DOUBLE.transform(str));
 
-    public static Comparator<String> COMPARE_STRINGS = null;
-    public static Comparator<Worker> COMPARE_WORKERS_BY_ID = null;
-    public static Comparator<Worker> COMPARE_WORKERS_BY_FIRST_NAME = null;
-    public static Comparator<Worker> COMPARE_WORKERS_BY_AGE = null;
+    public static Comparator<String> COMPARE_STRINGS = String::compareTo;
+    public static Comparator<Worker> COMPARE_WORKERS_BY_ID = Comparator.comparing(Worker::getId);
+    public static Comparator<Worker> COMPARE_WORKERS_BY_FIRST_NAME = Comparator.comparing(Worker::getFirstName);
+    public static Comparator<Worker> COMPARE_WORKERS_BY_AGE = Comparator.comparing(Worker::getAge);
 
-    public static BiFunction<Float, Float, Float> ADDITION = null;
-    public static BiFunction<Float, Float, Float> DEDUCTION = null;
-    public static BiFunction<Float, Float, Float> MULTIPLICATION = null;
+    public static BiFunction<Float, Float, Float> ADDITION = (x, y) -> x + y;
+    public static BiFunction<Float, Float, Float> DEDUCTION = (x, y) -> x - y;
+    public static BiFunction<Float, Float, Float> MULTIPLICATION = (x, y) -> x * y;
 
 
     @Test
@@ -37,13 +43,6 @@ public class LambdaServiceImplTest {
 
     @Test
     public void testTransformString() {
-        Assert.assertTrue(LambdaServiceImpl.transformString("test", TO_UPPER_CASE).equals("TEST"));
-        Assert.assertTrue(LambdaServiceImpl.transformString("test", STR_DOUBLE).equals("testtest"));
-        Assert.assertTrue(LambdaServiceImpl.transformString("test", STR_DOUBLE_UPPER).equals("TESTTEST"));
-    }
-
-    @Test
-    public void testCompare() {
         Assert.assertTrue(LambdaServiceImpl.transformString("test", TO_UPPER_CASE).equals("TEST"));
         Assert.assertTrue(LambdaServiceImpl.transformString("test", STR_DOUBLE).equals("testtest"));
         Assert.assertTrue(LambdaServiceImpl.transformString("test", STR_DOUBLE_UPPER).equals("TESTTEST"));

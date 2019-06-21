@@ -3,6 +3,7 @@ package com.dataart.optional;
 import com.dataart.core.constants.Data;
 import com.dataart.core.data.Worker;
 import com.dataart.core.data.opt.Computer;
+import com.dataart.core.data.opt.SoundCard;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,10 +14,6 @@ import java.util.function.Predicate;
 public class OptionalServiceImplTest extends TestCase {
 
     public static Predicate<Computer> predSoundcardPresent() {
-        return c -> OptionalServiceImpl.isSoundCardPresent(Optional.of(c));
-    }
-
-    public static Predicate<Computer> predCheaperThan(float price) {
         return c -> OptionalServiceImpl.isSoundCardPresent(Optional.of(c));
     }
 
@@ -57,8 +54,8 @@ public class OptionalServiceImplTest extends TestCase {
         Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predSoundcardPresent()).isPresent());
         Assert.assertTrue(OptionalServiceImpl.getComputersByCriterias(Data.getComputerSoundAsus(), predSoundcardPresent()).isPresent());
 
-        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predCheaperThan(100)).isPresent());
-        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predCheaperThan(900)).isPresent());
+        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predSoundcardPresent()).isPresent());
+        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predSoundcardPresent()).isPresent());
     }
 
 
