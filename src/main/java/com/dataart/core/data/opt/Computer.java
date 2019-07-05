@@ -10,6 +10,13 @@ public class Computer {
 
     private Optional<USB> usb = Optional.empty();
 
+    public Computer() {
+    }
+
+    public Computer(float price) {
+        this.price = price;
+    }
+
     public Optional<USB> getUsb() {
         return usb;
     }

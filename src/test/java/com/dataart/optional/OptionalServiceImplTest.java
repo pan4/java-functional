@@ -17,6 +17,10 @@ public class OptionalServiceImplTest extends TestCase {
         return c -> OptionalServiceImpl.isSoundCardPresent(Optional.of(c));
     }
 
+    public static Predicate<Computer> predCheaperThan(float price) {
+        return c -> c.getPrice() < price;
+    }
+
     @Test
     public void testPrintIfPresent() {
         Optional<Worker> workerOptional = Optional.of(Data.WORKER_LIST_0.get(0));
@@ -50,12 +54,12 @@ public class OptionalServiceImplTest extends TestCase {
     }
 
     @Test
-    public void testGetComupersByCriterias() {
+    public void testGetComputersByCriteria() {
         Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predSoundcardPresent()).isPresent());
         Assert.assertTrue(OptionalServiceImpl.getComputersByCriterias(Data.getComputerSoundAsus(), predSoundcardPresent()).isPresent());
 
-        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predSoundcardPresent()).isPresent());
-        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer()), predSoundcardPresent()).isPresent());
+        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer(1000)), predCheaperThan(100)).isPresent());
+        Assert.assertFalse(OptionalServiceImpl.getComputersByCriterias(Optional.of(new Computer(1000)), predCheaperThan(900)).isPresent());
     }
 
 

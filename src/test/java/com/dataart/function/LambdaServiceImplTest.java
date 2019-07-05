@@ -30,7 +30,7 @@ public class LambdaServiceImplTest {
     public static Comparator<Worker> COMPARE_WORKERS_BY_FIRST_NAME = Comparator.comparing(Worker::getFirstName);
     public static Comparator<Worker> COMPARE_WORKERS_BY_AGE = Comparator.comparing(Worker::getAge);
 
-    public static BiFunction<Float, Float, Float> ADDITION = (x, y) -> x + y;
+    public static BiFunction<Float, Float, Float> ADDITION = Float::sum;
     public static BiFunction<Float, Float, Float> DEDUCTION = (x, y) -> x - y;
     public static BiFunction<Float, Float, Float> MULTIPLICATION = (x, y) -> x * y;
 

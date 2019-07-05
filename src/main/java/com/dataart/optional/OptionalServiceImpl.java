@@ -44,14 +44,17 @@ public class OptionalServiceImpl {
 
 
     public static Boolean isSoundCardPresent(Optional<Computer> computer) {
-        return computer.flatMap(Computer::getUsb).flatMap(USB::getSoundCard).isPresent();
+        return getSoundCardOptional(computer).isPresent();
     }
 
     public static String getSoundCardInfo(Optional<Computer> computer) {
-        return computer.flatMap(Computer::getUsb)
-                .flatMap(USB::getSoundCard)
+        return getSoundCardOptional(computer)
                 .map(SoundCard::getVersion)
                 .orElse("NONE");
+    }
+
+    private static Optional<SoundCard> getSoundCardOptional(Optional<Computer> computer){
+        return computer.flatMap(Computer::getUsb).flatMap(USB::getSoundCard);
     }
 
     public static Optional<Computer> getComputersByCriterias(Optional<Computer> computerOptional, Predicate p) {
